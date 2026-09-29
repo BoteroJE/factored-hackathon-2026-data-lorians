@@ -1,0 +1,31 @@
+# Material recibido con credenciales; se versiona solo su copia publicable.
+/docs/LATAM_Bank_Complete_Data_Dictionary.md
+
+# Datos del organizador, muestras privadas y resultados con registros individuales.
+/data/
+/private/
+/artifacts/
+/reports/private/
+*.csv
+*.parquet
+*.db
+*.sqlite
+*.sqlite3
+
+# Credenciales y entorno local.
+.env
+.env.*
+!.env.example
+*credentials*
+*secret*
+*.pem
+*.key
+
+# Salidas locales futuras.
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+dist/
+build/
