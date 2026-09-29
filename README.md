@@ -1,6 +1,6 @@
 # Data Lorians — Factored AI & Data Hackathon 2026
 
-Este repositorio está en **fase de especificación**. Todavía no contiene un sistema de IA ni una demo funcional. La propuesta es un asistente de consultas sobre transacciones de LATAM Bank, con respuestas verificadas para clientes autenticados y derivación de posibles cargos desconocidos.
+Este repositorio está en **fase de especificación**. Todavía no contiene un sistema de IA ni una demo funcional. La propuesta es un asistente de consultas sobre transacciones de LATAM Bank, con respuestas verificadas para clientes autenticados y derivación de posibles cargos desconocidos. La evidencia principal vendrá de un pipeline de datos reproducible y de un clasificador de intención evaluado frente a una línea base.
 
 ## Documentos de trabajo
 
@@ -16,8 +16,8 @@ Las reglas de colaboración para personas y agentes están en [AGENTS.md](AGENTS
 
 ## Estado y límites
 
-- Hipótesis de producto, arquitectura y contratos: definidos para revisión.
-- Magnitud real del problema, calidad de etiquetas, permisos de alojamiento de la muestra y proveedor de IA: pendientes de validación.
+- Arquitectura prevista: S3 del organizador → preparación y carga por lotes → Databricks Free Edition (bronze/silver/gold, calidad, linaje y MLflow) → muestra y clasificador versionados en Postgres → demo web en Render.
+- Hipótesis de producto, arquitectura y contratos: definidos para revisión. Magnitud real del problema, calidad de etiquetas, cuota disponible de Databricks y proveedor de lenguaje: pendientes de validación.
 - No hay métricas observadas, evaluación ejecutada, cuentas de prueba, despliegue ni código de aplicación.
 
 Antes de implementar, el equipo debe cerrar las decisiones de `07-decisiones.md` y aprobar los contratos compartidos. Ningún número estimado en estos documentos debe presentarse como resultado medido.

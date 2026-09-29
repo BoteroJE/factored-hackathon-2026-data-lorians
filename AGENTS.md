@@ -9,7 +9,7 @@ Este repositorio está **solo en planificación**. No crear aplicación, scripts
 - Leer primero `README.md` y los documentos de `docs/plan/`.
 - Las reglas del reto están en `docs/Factored AI & Data Hackathon 2026.md`; el esquema publicable está en `docs/LATAM_Bank_Data_Dictionary_Public.md`.
 - El diccionario original `docs/LATAM_Bank_Complete_Data_Dictionary.md` contiene credenciales de acceso y está excluido de Git. Nunca copiar sus claves, valores de secretos o contenido de autenticación a commits, PR, logs, prompts o servicios externos.
-- El dataset es sintético, pero sus condiciones de uso y las de recursos externos siguen siendo vinculantes. Verificar permisos antes de subir una muestra a Render o enviar datos a un modelo.
+- El dataset es sintético, pero sus condiciones de uso y las de recursos externos siguen siendo vinculantes. El usuario indicó que se pueden usar proveedores externos; antes de cargar filas, revisar las condiciones concretas de Databricks Free Edition y del modelo elegido. No enviar filas a un modelo de lenguaje sin esa revisión.
 - Distinguir en toda documentación datos observados, hipótesis, datos sintéticos del organizador y casos creados por el equipo. No inventar métricas ni prometer resultados de producción.
 
 ## Desarrollo guiado por especificaciones
@@ -24,11 +24,11 @@ Este repositorio está **solo en planificación**. No crear aplicación, scripts
 
 | Responsable | Propiedad principal cuando empiece la implementación | Pruebas de su módulo |
 | --- | --- | --- |
-| Datos y evaluación | Ingesta, calidad, muestra privada, clasificación y evaluación | Datos y evaluación |
-| Asistente y reglas | Orquestación, autorización de herramientas, estados, derivación y adaptador de modelo | Asistente y reglas |
-| Interfaz y plataforma | Web, sesiones, despliegue y observabilidad | Interfaz y plataforma |
+| A — Ingeniería de datos | S3, manifiesto, staging, bronze/silver/gold, calidad, linaje y snapshot publicable | Pipeline y contratos de datos |
+| B — ML y evaluación | Etiquetas, línea base, clasificador, MLflow, calibración y evaluación integral | Modelo, métricas y casos reservados |
+| C — Aplicación y plataforma | Orquestación, reglas, web, sesiones, Postgres, Render y observabilidad | API, seguridad e integración |
 
-El responsable de interfaz y plataforma integra los archivos transversales y PR hacia `main`. La estructura exacta de código se creará solo al abrir la fase de implementación; los límites de módulo y contratos ya están definidos en la documentación.
+La persona C integra los archivos transversales y PR hacia `main`; A posee los contratos gold y B el contrato del clasificador, sujetos a revisión conjunta antes de implementar consumidores. La estructura exacta de código se creará solo al abrir la fase de implementación.
 
 ## Git y CI al iniciar implementación
 

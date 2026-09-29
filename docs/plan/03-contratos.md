@@ -1,6 +1,6 @@
 # 03 — Contratos compartidos
 
-Estado: versión 0 de diseño. Cualquier cambio requiere revisión de los tres responsables antes de escribir código consumidor.
+Estado: versión 1 de diseño. Cualquier cambio requiere revisión de los tres responsables antes de escribir código consumidor.
 
 ## Convenciones
 
@@ -35,7 +35,20 @@ Estado: versión 0 de diseño. Cualquier cambio requiere revisión de los tres r
 | `HandoffRecord` | ID, cliente, conversación, solicitud, hechos, evidencias, acciones confirmadas, preguntas pendientes, fecha | Persistir antes de confirmar al cliente. |
 | `ModelDraft` | idioma, texto propuesto, referencias usadas, versión | Se valida contra la decisión y los hechos permitidos antes de mostrarse. |
 
-La interfaz del adaptador de modelo recibe instrucciones de sistema versionadas, idioma, mensaje del usuario y hechos mínimos autorizados; devuelve `ModelDraft`, uso y estado. El proveedor/modelo se selecciona por configuración, sin cambiar contratos del resto del servicio.
+La interfaz del adaptador de lenguaje recibe instrucciones de sistema versionadas, idioma, mensaje del usuario y hechos mínimos autorizados; devuelve `ModelDraft`, uso y estado. El proveedor/modelo se selecciona por configuración, sin cambiar contratos del resto del servicio.
+
+## Contratos de datos y modelo
+
+| Entrega de A o B | Campos mínimos | Consumidor y regla |
+| --- | --- | --- |
+| `source_manifest` | `source_key`, `source_size`, `source_sha256`, `process_date`, `ingested_at`, `batch_id` | A conserva el mapeo de cada fila a su objeto S3; una misma clave y hash no se carga dos veces. |
+| `gold.contact_demand_monthly` | `month`, `country`, `contact_reason`, `interactions`, `fcr_known`, `fcr_count`, `escalated_count`, `batch_id` | B usa agregados para justificar alcance; ningún nulo de FCR se trata como falso. |
+| `gold.intent_candidates` | `interaction_id`, `customer_id`, `interaction_date`, `customer_text_clean`, `contact_reason`, `detected_intents`, `batch_id` | A entrega candidatos sin imponer etiquetas de verdad. B usa solo texto del cliente como rasgo. |
+| `ml.reviewed_intent_examples` | `interaction_id`, `reviewed_label`, `label_version`, `review_status`, `source_batch_id` | B posee etiquetas revisadas y su unión con gold; `contact_reason` y `detected_intents` no entran como rasgos. |
+| `gold.transaction_snapshot` | `transaction_id`, `customer_id`, `product_id`, `transaction_date`, `amount`, `currency`, `merchant_name?`, `transaction_status`, `data_as_of`, `batch_id` | C importa solo filas aptas y comprueba propiedad de producto y transacción en cada consulta. |
+| `ClassifierRelease` | `model_version`, `artifact_sha256`, `training_batch_id`, `label_version`, `threshold`, `metrics_ref`, `created_at` | B publica una versión aprobada; C verifica hash y carga esa versión de la base privada al iniciar. |
+
+Todos los gold incluyen esquema versionado, recuento, fecha de corte y manifiesto de entrada. Los identificadores y textos individuales quedan fuera del repositorio público. Cambiar nombres, tipos o semántica exige actualizar este contrato antes de cambiar productores o consumidores.
 
 ## Errores y estados
 

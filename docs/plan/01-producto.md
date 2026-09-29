@@ -36,4 +36,4 @@ La palabra «estado» significa **estado registrado en la muestra histórica**, 
 
 ## Criterios de entrega
 
-La demo debe mostrar P1, P2 y P3 de principio a fin; publicar la especificación, el reporte de datos, la comparación con línea base, los resultados de seguridad y el runbook. Si una puerta de calidad no se cumple, se informa el fallo y no se afirma resolución segura para ese caso. Contención, resolución segura y derivación son resultados distintos.
+La demo debe mostrar P1, P2 y P3 de principio a fin. La evidencia principal de la entrega será: demanda medida en las tablas pertinentes, ejecución reproducible de bronze/silver/gold con calidad y linaje, un clasificador entrenado y comparado con línea base, y resultados reservados del sistema completo. Publicar también especificación, resultados de seguridad y runbook. Si una puerta de calidad no se cumple, se informa el fallo y no se afirma resolución segura para ese caso. Contención, resolución segura y derivación son resultados distintos.
